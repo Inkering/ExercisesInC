@@ -50,16 +50,17 @@ int increment_count(int val, int count) {
 /* Execute the program */
 int main()
 {
+	int count, val;
 	char card_name[3];
-	int count = 0;
+	count = 0;
 	while (card_name[0] != 'X') {
 		puts("Enter the card_name: ");
 		scanf("%2s", card_name);
 		if (card_name[0] == 'X') {
 			continue;
 		}
-		int val = input_card(card_name);
-		int count = increment_count(val, count);
+		val = input_card(card_name);
+		count = increment_count(val, count);
 		printf("Current count: %i\n", count);
 	}
 	return 0;
