@@ -86,3 +86,47 @@ Making two allocations of a randomly chosen byte size. n1 was created first, n2 
     res:            -32
     res in hex:     -20
     ```
+
+## Stack Allocated data
+
+1. exploring `stack.c`\
+The program prints the location of an array defined in foo, and also in bar. Finally, in
+main, the contents of the most recent usage of the array are printed. However, I can 
+immediately see that this isn't going to work as intended. Firstly, when the variables in 
+function foo() go out of scope, the reference to the array variable will be uttely released 
+from the stack when it goes out of scope.
+
+2. Compiling stack (unmodified)\
+When compiling it, the output when run is:
+    ```
+    address of stack memory associated with local variable
+      'array' returned
+    ```
+3. Running it\
+When running the stack program, even with warnings, it shows:
+    ```
+    0x7ffeeda1c830
+    0x7ffeeda1c830
+    0
+    48
+    -308164512
+    32766
+    -308164736
+    ```
+    Many of these values just look like random numbers from my computer's stack, particularly the large ones.
+
+4. Commenting out print statements\
+When commenting out the print statements in foo() and bar(), we get:
+    ```
+    0
+    48
+    -394426272
+    32766
+    -394426496
+    ```
+    and the warning is the same as in 2.
+    Here we are only attempting to print the array contents, which is done, although the
+    data shown is pretty ridiculous, as determined before.
+
+5. Comments in the file.\
+Okay! Moved to the stack file!
