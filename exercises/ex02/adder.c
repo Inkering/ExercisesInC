@@ -15,18 +15,17 @@ int* readInput(int* inputs) {
     // initialize a char array to put user info in
     char inputRaw[8];
     for (i = 0; i < 20 + 1; i++ ) {        
-        int val = atoi(inputRaw);
         // check if number is too big or weird
-
-        // check if not a possible integer
-        // atoi should return 0 if it fails
-        // if (val == 0) {
-        //     break;
-        // }
+        // subject one from length check for end terminator
+        if (strlen(inputRaw) == 8 -1) {
+            fprintf(stderr,"the number inputted is too big!");
+            return 0;
+        }
 
         // check if the array is too small 
         if (i >= 20) {
-            break;
+            fprintf(stderr,"too many elements aded!");
+            return 0;
         }
 
         // check if user entered ctrl-d
@@ -36,9 +35,19 @@ int* readInput(int* inputs) {
             break;
         }
 
+        // convert from string to int
+        int val = atoi(inputRaw);
+
+        // check if we got a valid integer
+        if (val == 0 && strncmp(inputRaw, "0\n", 3)) {
+            fprintf(stderr,"not a value integer!");
+            return 0;
+        }
+        
         // put the value in the array
         inputs[i] = val;
     }
+    return 0;
 }
 
 int sum(int* inputs, int length) {
