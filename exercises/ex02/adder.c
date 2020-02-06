@@ -9,24 +9,38 @@ Written by Dieter Brehm, 2020
 #include <string.h>
 
 /* input loop */
-int* readInput() {
+int* readInput(int* inputs) {
     // initialize a integer for tracking the loop
     int i;
     // initialize a char array to put user info in
     char inputRaw[8];
-    for (i = 0; i < 20 ; i++ ) {
-        // put the value in the array
-
-        // check if the array is too small 
-
+    for (i = 0; i < 20 + 1; i++ ) {        
+        int val = atoi(inputRaw);
         // check if number is too big or weird
 
         // check if not a possible integer
+        // atoi should return 0 if it fails
+        // if (val == 0) {
+        //     break;
+        // }
+
+        // check if the array is too small 
+        if (i >= 20) {
+            break;
+        }
 
         // check if user entered ctrl-d
+        // I see here that fgets modifies the inputraw
+        // array even in a check.
+        if (fgets(inputRaw, 8, stdin) == NULL) {
+            break;
+        }
+
+        // put the value in the array
+        inputs[i] = val;
     }
 }
-/* Sum function*/
+
 int sum(int* inputs, int length) {
     // https://riptutorial.com/c/example/1125/array-length indicates
     // that it is necessary to pass length seperately from the pointer to
@@ -47,9 +61,9 @@ int main() {
     int inputArray[20] = {};
     int result;
     // read user input until exited by user, modifying input array
-    readInput(&inputArray);
+    readInput(inputArray);
 
-    int result = sum(inputArray, sizeof(inputArray) / sizeof(inputArray[0]));
+    result = sum(inputArray, sizeof(inputArray) / sizeof(inputArray[0]));
     printf("the result is %d\n", result);
     return 0;
 }
