@@ -53,20 +53,20 @@ int main()
     return 0;
 }
 
-// 1. exploring `stack.c`\
+// 1. exploring `stack.c`
 // The program prints the location of an array defined in foo, and also in bar. Finally, in
 // main, the contents of the most recent usage of the array are printed. However, I can 
 // immediately see that this isn't going to work as intended. Firstly, when the variables in 
 // function foo() go out of scope, the reference to the array variable will be uttely released 
 // from the stack when it goes out of scope.
 
-// 2. Compiling stack (unmodified)\
+// 2. Compiling stack (unmodified)
 // When compiling it, the output when run is:
 //     ```
 //     address of stack memory associated with local variable
 //       'array' returned
 //     ```
-// 3. Running it\
+// 3. Running it
 // When running the stack program, even with warnings, it shows:
 //     ```
 //     0x7ffeeda1c830
@@ -79,7 +79,7 @@ int main()
 //     ```
 //     Many of these values just look like random numbers from my computer's stack, particularly the large ones.
 
-// 4. Commenting out print statements\
+// 4. Commenting out print statements
 // When commenting out the print statements in foo() and bar(), we get:
 //     ```
 //     0

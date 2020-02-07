@@ -8,8 +8,11 @@ Written by Dieter Brehm, 2020
 #include <stdlib.h>
 #include <string.h>
 
-/* input loop */
 int* readInput(int* inputs) {
+/* Function for collecting user input of numbers until
+ * they 
+ */
+
     // initialize a integer for tracking the loop
     int i;
     // initialize a char array to put user info in
@@ -72,7 +75,9 @@ int main() {
     // read user input until exited by user, modifying input array
     readInput(inputArray);
 
+    // calculated the summation of the inputted numbers
     result = sum(inputArray, sizeof(inputArray) / sizeof(inputArray[0]));
+    
     printf("the result is %d\n", result);
     return 0;
 }
