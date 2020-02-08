@@ -33,8 +33,20 @@ s: string
 returns: string
 */
 char *reverse_string(char *s) {
-    //TODO: Fill this in.
-    return "";
+	// oooh, I need to use the heap to correct return a string!
+	size_t len = strlen(s);
+	// allocate a bunch of memory chunks, equal to the size of the old string!
+	char* rev = calloc(len, sizeof(char));
+	for (int i=0; i<len;i++) {
+		// flip the index at each step,
+		// and ignore the null character.
+		rev[i] = s[(len-1) - i];
+	}
+	// after a log of debugging, I realized I never
+	// added a null character to the end!
+	rev[len] = '\0';
+
+	return rev;
 }
 
 /* ctoi: Converts a character to integer.
@@ -43,8 +55,8 @@ c: one of the characters '0' to '9'
 returns: integer 0 to 9
 */
 int ctoi(char c) {
-    assert(isdigit(c));
-    return c - '0';
+	assert(isdigit(c));
+	return c - '0';
 }
 
 /* itoc: Converts an integer to character.
@@ -53,8 +65,8 @@ i: integer 0 to 9
 returns: character '0' to '9'
 */
 char itoc(int i) {
-    //TODO: Fill this in, with an appropriate assertion.
-    return '0';
+	assert(i >= 0 && i <= 9);
+	return '0' + i;
 }
 
 /* add_digits: Adds two decimal digits, returns the total and carry.
@@ -70,7 +82,22 @@ carry: pointer to char
 
 */
 void add_digits(char a, char b, char c, char *total, char *carry) {
-    //TODO: Fill this in.
+	int sum;
+
+	// convert chars to ints and calc sum
+	sum = ctoi(a) + ctoi(b) + ctoi(c);
+	if (sum >= 10) {
+		// take us back to char-land
+		// and this time we carry the 1
+		// because the sum is over 9
+		*total = itoc(sum - 10);
+		*carry = '1';
+	} else {
+		// take us back to char-land
+		// and no need to carry the 1
+		*total = itoc(sum);
+		*carry = '0';
+	}
 }
 
 /* Define a type to represent a BigInt.
@@ -203,8 +230,6 @@ int main (int argc, char *argv[])
     test_itoc();
     test_add_digits();
 
-    //TODO: When you have the first three functions working,
-    //      uncomment the following, and it should work.
-    // test_add_bigint();
+    test_add_bigint();
     return 0;
 }
