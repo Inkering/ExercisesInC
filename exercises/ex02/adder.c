@@ -10,14 +10,14 @@ Written by Dieter Brehm, 2020
 
 int* readInput(int* inputs) {
 /* Function for collecting user input of numbers until
- * they 
+ * they press ctrl-d
  */
 
     // initialize a integer for tracking the loop
     int i;
     // initialize a char array to put user info in
     char inputRaw[8];
-    for (i = 0; i < 20 + 1; i++ ) {        
+    for (i = 0; i < 20 + 1; i++ ) {
         // check if number is too big or weird
         // subject one from length check for end terminator
         if (strlen(inputRaw) == 8 -1) {
@@ -46,7 +46,7 @@ int* readInput(int* inputs) {
             fprintf(stderr,"not a value integer!");
             return 0;
         }
-        
+
         // put the value in the array
         inputs[i] = val;
     }
