@@ -20,7 +20,9 @@ int* readInput(int* inputs) {
     for (i = 0; i < 20 + 1; i++ ) {
         // check if number is too big or weird
         // subject one from length check for end terminator
-        if (strlen(inputRaw) == 8 -1) {
+        // TODO: this triggers at (strlen  - 3) despite this code
+        // and I can't figure out why
+        if (strlen(inputRaw) == 8 - 1) {
             fprintf(stderr,"the number inputted is too big!");
             return 0;
         }
