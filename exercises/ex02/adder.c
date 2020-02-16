@@ -18,6 +18,13 @@ int* readInput(int* inputs) {
     // initialize a char array to put user info in
     char inputRaw[8];
     for (i = 0; i < 20 + 1; i++ ) {
+        // check if user entered ctrl-d
+        // I see here that fgets modifies the inputraw
+        // array even in a check.
+        if (fgets(inputRaw, 8, stdin) == NULL) {
+            break;
+        }
+
         // check if number is too big or weird
         // subject one from length check for end terminator
         // TODO: this triggers at (strlen  - 3) despite this code
@@ -31,13 +38,6 @@ int* readInput(int* inputs) {
         if (i >= 20) {
             fprintf(stderr,"too many elements aded!");
             return 0;
-        }
-
-        // check if user entered ctrl-d
-        // I see here that fgets modifies the inputraw
-        // array even in a check.
-        if (fgets(inputRaw, 8, stdin) == NULL) {
-            break;
         }
 
         // convert from string to int
