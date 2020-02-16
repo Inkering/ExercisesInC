@@ -1,9 +1,9 @@
 /*
-	 dtee, pronounced dee-tee
+	 tee,
 	 A tee copy by Dieter Brehm, 2020
 
 	 USAGE:
-	 dtee -a file.txt, given a piped in stdin
+	 tee -a file.txt, given a piped in stdin
 
 	 Softsys Questions:
 	 3. REFLECT
