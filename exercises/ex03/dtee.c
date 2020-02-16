@@ -21,7 +21,8 @@
 	 arugments with the getopt() function, allowing it to handle arbitary cases
 	 without a lot of checks beyond a switch statement. It also doesn't use as
 	 high level file reading commands, instead choosing to use read() and raw byte
-	 numbers (8 KiB bytes at a time!) 
+	 numbers (8 KiB bytes at a time!)
+*/
 
 #include <stdio.h>
 #include <stdlib.h>
