@@ -54,7 +54,7 @@ char *sock_ntop_host(const struct sockaddr *sa, socklen_t salen)
   }
   case AF_UNIX: {
     struct sockaddr_un      *unp = (struct sockaddr_un *) sa;
-    
+
     /* OK to have no pathname bound to the socket: happens on
        every connect() unless client calls bind() first. */
     if (unp->sun_path[0] == 0)

@@ -1,4 +1,6 @@
-trout: main.c trout.c util.c trout.h util.h
-	clang main.c trout.c util.c -o trout
+trout: main.c trout.o util.o trout.h util.h
+	gcc  $^ -o $@
+%.o: %.c %.h
+	gcc -c $< -o $@
 clean:
-	rm trout
+	rm trout util.o trout.o
