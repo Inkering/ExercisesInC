@@ -9,11 +9,11 @@
 	 3. REFLECT
 
 	 I think that it took awhile to wrap my head around the libraries available to
-	 me. Once copious googling led me to getline, I felt as I was on the right path.
-	 My first thought was to choose a fixed size for a particular line, but I wasn't
-	 sure about the bounds for what people are typically pipping from one source to
-	 another. C's getline function gets around this by handling dynamic allocation of
-	 increased line sizes.
+	 me. Once copious googling led me to getline, I felt as I was on the right
+	 path.  My first thought was to choose a fixed size for a particular line, but
+	 I wasn't sure about the bounds for what people are typically pipping from one
+	 source to another. C's getline function gets around this by handling dynamic
+	 allocation of increased line sizes.
 
 	 4. SOLUTION COMPARISON
 
