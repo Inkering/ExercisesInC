@@ -75,10 +75,52 @@ float my_random_float2()
     return b.f;
 }
 
+double num_gen() {
+	long long num = 0;
+	int i;
+
+	for (i=0; i<3; i++) {
+		num <<= sizeof(int) * 8 - 1;
+		int num2 = random();
+		num |= num2;
+	}
+
+	num = num & ~ (((long long) 1) << 63);
+
+	return num;
+}
+
 // compute a random double using my algorithm
 double my_random_double()
 {
-    // TODO: fill this in
+	long long x;
+ 	long long exp;
+	long long mant;
+
+	union {
+		double d;
+		long long i;
+	} b;
+
+	while(1) {
+		x = num_gen();
+		if (x == 0 && x >= 63) {
+			exp -= 63;
+		} else {
+			break;
+		}
+	}
+
+	int mask = 1;
+	while(x & mask && exp > 1) {
+		mask <<= 1;
+		exp--;
+	}
+
+	mant = x >> 11;
+	b.i = (exp << 52) | mant;
+
+	return b.d;
 }
 
 // return a constant (this is a dummy function for time trials)
@@ -112,7 +154,6 @@ float random_float()
     return f;
 }
 
-
 // generate a random double using the standard algorithm
 float random_double()
 {
@@ -124,3 +165,4 @@ float random_double()
 
     return f;
 }
+

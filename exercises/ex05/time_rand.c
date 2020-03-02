@@ -53,7 +53,7 @@ double time_func(int iters, float(*func)())
 }
 
 
-main(int argc, char *argv[])
+int main(int argc, char *argv[])
 {
     double time;
     int iters = 100000000;
@@ -70,10 +70,12 @@ main(int argc, char *argv[])
 
     time = time_func(iters, my_random_float);
     printf("%f ms \t my_random_float\n", time);
-
+ 
     time = time_func(iters, my_random_float2);
     printf("%f ms \t my_random_float2\n", time);
 
     time = time_func(iters, random_float);
     printf("%f ms \t random_float\n", time);
+
+		return 0;
 }
