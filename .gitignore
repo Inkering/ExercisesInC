@@ -13,3 +13,7 @@ exercises/web_server/tcpserv01
 
 /.ccls-cache
 *.code-workspace
+
+.vagrant/
+Vagrantfile
+*.log
