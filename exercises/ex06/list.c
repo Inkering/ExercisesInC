@@ -54,8 +54,13 @@ void print_list(Node **list) {
 * returns: int or -1 if the list is empty
 */
 int pop(Node **list) {
-    // FILL THIS IN!
-    return 0;
+	if (!(*list)) {
+		return -1;
+	}
+	Node* next = (*list)->next;
+	int val = (*list)->val;
+	*list = next;
+	return val;
 }
 
 
@@ -65,7 +70,8 @@ int pop(Node **list) {
 * val: value to add
 */
 void push(Node **list, int val) {
-    // FILL THIS IN!
+	Node* node = make_node(val, *list);
+	*list = node;
 }
 
 
@@ -79,8 +85,17 @@ void push(Node **list, int val) {
 * returns: number of nodes removed
 */
 int remove_by_value(Node **list, int val) {
-    // FILL THIS IN!
-    return 0;
+  int removed = 0;
+	for (Node* node = *list; node && node->next; node = node->next) {
+		if (node->next->val == val) {
+			Node* next = node->next;
+			node->next = next->next;
+
+			removed += 1;
+			break;
+		}
+	}
+	return removed;
 }
 
 
@@ -91,7 +106,18 @@ int remove_by_value(Node **list, int val) {
 * list: pointer to pointer to Node
 */
 void reverse(Node **list) {
-    // FILL THIS IN!
+	Node* head;
+	Node* rev;
+
+	// use the for loop iterator to traverse the DLL
+	for (head=*list; head->next; head=head->next);
+
+	while ((*list)->next) {
+		for (rev=*list; rev->next->next;rev = rev->next);
+		rev->next->next = rev;
+		rev->next = NULL;
+	}
+	*list = head;
 }
 
 
