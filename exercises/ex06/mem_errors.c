@@ -28,6 +28,9 @@ int main()
     int array1[100];
     int *array2 = malloc(100 * sizeof (int));
 
+		free(never_free);
+		free(array2);
+
     // valgrind does not bounds-check static arrays
     /* read_element(array1, -1); */
     /* read_element(array1, 100); */
