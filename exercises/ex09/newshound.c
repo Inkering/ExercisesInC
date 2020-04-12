@@ -3,6 +3,7 @@
 Downloaded from https://github.com/twcamper/head-first-c
 
 Modified by Allen Downey.
+
 */
 
 #include <stdio.h>
@@ -39,14 +40,36 @@ int main(int argc, char *argv[])
     char *search_phrase = argv[1];
     char var[255];
 
-    for (int i=0; i<num_feeds; i++) {
-        sprintf(var, "RSS_FEED=%s", feeds[i]);
-        char *vars[] = {var, NULL};
+		pid_t pid;
 
-        int res = execle(PYTHON, PYTHON, SCRIPT, search_phrase, NULL, vars);
-        if (res == -1) {
-            error("Can't run script.");
-        }
+    for (int i=0; i<num_feeds; i++) {
+			if ((pid = fork()) < 0) {
+				perror("oh goodness a forking error");
+			}
+
+			if (pid == 0) {
+				sprintf(var, "RSS_FEED=%s", feeds[i]);
+				char *vars[] = {var, NULL};
+
+				int res = execle(PYTHON, PYTHON, SCRIPT, search_phrase, NULL, vars);
+				if (res == -1) {
+					error("Can't run script.");
+				}
+			}
     }
+
+		int stat;
+
+		for (int j = 0; j < num_feeds; j++) {
+			pid = wait(&stat);
+			if (pid < 0) {
+				perror("oh oh goodness a waiting error");
+				exit(1);
+			}
+			stat = WEXITSTATUS(stat);
+			if (stat != 0) {
+				fprintf(stderr, "process error");
+			}
+		}
     return 0;
 }

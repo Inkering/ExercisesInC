@@ -32,8 +32,28 @@ child 2 exit msg
 
 elasped time
 
-
 2. Static, Heap, global sharing:
+
+By adding a variable (which we think might be independent to each process) of
+each type, and then modifying in each process, we can see if the differences compound.
+cmd line printout:
+
+Creating child 0.
+Creating child 1.
+Creating child 2.
+Hello from child 0.
+31 31 31 1Hello from the parent.
+Child 12268 exited with error code 0.
+Hello from child 1.
+31 31 31 1Child 12269 exited with error code 1.
+Hello from child 2.
+31 31 31 1Child 12270 exited with error code 2.
+Elapsed time = 2.002334 seconds.
+
+As seen from the 4 sets of numbers shown throughout, differences do NOT compound! woo!
+
+3. answer to rss question: the rss feed process won't reply (return) when execkle is called.
+
 
 */
 
