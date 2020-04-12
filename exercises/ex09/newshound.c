@@ -11,7 +11,7 @@ Modified by Allen Downey.
 #include <stdlib.h>
 #include <errno.h>
 #include <sys/types.h>
-#include <wait.h>
+#include <sys/wait.h>
 
 
 void error(char *msg)

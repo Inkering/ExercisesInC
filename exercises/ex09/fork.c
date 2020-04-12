@@ -3,6 +3,38 @@
 Copyright 2016 Allen B. Downey
 License: MIT License https://opensource.org/licenses/MIT
 
+
+Exercise answers:
+
+1. Diagramming
+
+Parent
+
+fork ----------> child 0
+
+fork ----------> child 1
+
+fork ----------> child 2
+
+Parent Hello
+
+wait <---------- child 0 exit
+
+child 0 exit msg
+
+wait <---------- child 1 exit
+
+child 1 exit msg
+
+wait <---------- child 2 exit
+
+child 2 exit msg
+
+elasped time
+
+
+2. Static, Heap, global sharing:
+
 */
 
 #include <stdio.h>
@@ -12,12 +44,17 @@ License: MIT License https://opensource.org/licenses/MIT
 #include <errno.h>
 #include <sys/time.h>
 #include <sys/types.h>
-#include <wait.h>
+#include <sys/wait.h>
 
 
 // errno is an external global variable that contains
 // error information
 extern int errno;
+
+// values for testing child behaviour
+int someg = 30;
+
+static int somes = 30;
 
 
 // get_seconds returns the number of seconds since the
@@ -30,10 +67,21 @@ double get_seconds() {
 }
 
 
-void child_code(int i)
+void child_code(int i, int* somem, int* someh)
 {
     sleep(i);
     printf("Hello from child %d.\n", i);
+
+		// change values to see if changes compound
+		// across threads
+		someg += 1;
+		somes += 1;
+		(*somem) += 1;
+		(*someh) += 1;
+
+		// print child process variables
+		// we certainly expect them to be indepedendent to the processes
+		printf("%d %d %d %d", someg, somes, *somem, *someh);
 }
 
 // main takes two parameters: argc is the number of command-line
@@ -45,6 +93,8 @@ int main(int argc, char *argv[])
     pid_t pid;
     double start, stop;
     int i, num_children;
+		int somem = 30;
+		int* someh = malloc(sizeof(int));
 
     // the first command-line argument is the name of the executable.
     // if there is a second, it is the number of children to create.
@@ -72,7 +122,7 @@ int main(int argc, char *argv[])
 
         /* see if we're the parent or the child */
         if (pid == 0) {
-            child_code(i);
+					child_code(i, &somem, someh);
             exit(i);
         }
     }
