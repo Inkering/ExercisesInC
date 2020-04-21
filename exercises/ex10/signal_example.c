@@ -72,12 +72,13 @@ int main(void) {
 
         // set (or reset) the alarm
         alarm(5);
-				while (1) {
-					// get the answer
-					char *ret = fgets(txt, 4, stdin);
-					if (ret) break;
-				}
-				answer = atoi(txt);
+
+        // get the answer
+        while (1) {
+            char *ret = fgets(txt, 4, stdin);
+            if (ret) break;
+        }
+        answer = atoi(txt);
 
         // check the answer
         if (answer == a * b) {
