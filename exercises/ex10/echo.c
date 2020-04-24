@@ -63,8 +63,8 @@ void child_code(int pipe_to_child[], int pipe_to_parent[])
 		//close read end of pipe to parent
 		/* close(pipe_to_parent[0]); */
 
-		// write a string to the child
-    char send[] = "I Love you, parent";
+		// write a string to the parent
+    char send[] = "I'm proud of you, child.";
     ssize_t sizewrite = write(pipe_to_parent[1], send, strlen(send)+1);
     if (sizewrite == -1)
         error("Child can't write to parent");
@@ -94,7 +94,7 @@ int main(int argc, char *argv[])
     if (child_pid == 0) {
 			child_code(pipe_to_child, pipe_to_parent);
     } else {
-			parent_code(pipe_to_child, pipe_to_child);
+			parent_code(pipe_to_child, pipe_to_parent);
     }
 
     int status;
